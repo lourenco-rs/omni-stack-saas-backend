@@ -12,3 +12,7 @@ Route.group(() => {
 
   Route.post('files', 'FileController.store')
 }).middleware('auth')
+
+Route.group(() => {
+  Route.post('invites', 'InviteController.store')
+}).middleware(['auth', 'team'])
