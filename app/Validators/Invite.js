@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class Invite {
   get validateAll () {
     return true
@@ -10,6 +12,10 @@ class Invite {
       invites: 'required|array',
       'invites.*': 'required|email'
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 
