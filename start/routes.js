@@ -10,13 +10,17 @@ Route.post('passwords', 'ForgotPasswordController.store')
 Route.put('passwords', 'ForgotPasswordController.update')
 
 Route.group(() => {
-  Route.resource('teams', 'TeamController').apiOnly()
+  Route.resource('teams', 'TeamController')
+    .apiOnly()
+    .validator(new Map([[['teams.store', 'teams.update'], ['Team']]]))
 
   Route.post('files', 'FileController.store')
 }).middleware('auth')
 
 Route.group(() => {
-  Route.post('invites', 'InviteController.store')
+  Route.post('invites', 'InviteController.store').validator('Invite')
 
-  Route.resource('projects', 'ProjectController').apiOnly()
+  Route.resource('projects', 'ProjectController')
+    .apiOnly()
+    .validator(new Map([[['projects.store', 'projects.update'], ['Project']]]))
 }).middleware(['auth', 'team'])
